@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+body {
+	font-family: 'Montserrat', sans-serif;
+	background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(london-dome.jpeg);
+	background-size: cover;
+	background-position: center;
+	background-repeat: none;
+}
+
+.App-wrapper {
+	width: 35%;
+	margin: 100px auto;
+	border: 1px solid #d9d9d9;
+	border-radius: 10px;
+	box-shadow: 1px 1px 1px 1px;
+	background-color: white;
+	padding: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+	.App-wrapper {
+		width: 55%;
+	}
+}
+
+header, #App-form, #App-buttonGroup, #App-identifier {
+	text-align: center;
+}
+
+#App-buttonGroup {
+	padding: 15px 0;
+}
+
+#App-buttonGroup button {
+	background: none;
+	border: 1px solid transparent;
+	border-radius: 5px;
+	margin: 0 1px;
+	padding: 5px;
+}
+
+#App-buttonGroup button:active, #App-buttonGroup button:focus {
+	outline: none;
+	border: 1px solid #d3d3d3;
+}
+
+.strikethrough {
+	text-decoration: line-through;
+	color: #999;
+}
+
+#App-list ul {
+	padding: 0 35px;
+	list-style-type: none;
+}
+
+#App-list li {
+	padding: 10px 0;
+	border-bottom: 1px solid #999;
+	font-size: 16px;
+	position: relative;
+}
+
+#App-list li:hover {
+	background-color: #f1f1f1;
+}
+
+.li-btn {
+	position: absolute;
+	outline: none;
+	right: 0;
+	top: 20%;
+	background: none;
+	border: 1px solid transparent;
+	font-weight: bold;
+	font-size: 14px;
+	transition: 0.1s ease;
+}
+
+.li-btn:hover {
+	transform: scale(1.5);
+	color: red;
+}
