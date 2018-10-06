@@ -12,6 +12,7 @@ const store = configureStore();
 
 -------------*/
 class App extends Component {
+
 	render() {
 		return (
 			<Provider store={store}>
@@ -86,8 +87,6 @@ const FormSubmit = (props) => {
 -------------*/
 const Buttons = (props) => {
 
-	console.log(props); 
-
 	const viewComplete = () => store.dispatch({type: 'VIEW_COMPLETE'});
 	const viewIncomplete = () => store.dispatch({type: 'VIEW_INCOMPLETE'});
 	const  viewAll = () => store.dispatch({type: 'VIEW_ALL'});
@@ -108,25 +107,51 @@ const Buttons = (props) => {
 	 LIST
 
 -------------*/
-const List = (props) => (
-	<ul>
 
-		{
-			props.visible === 'COMPLETE' && props.items.filter(item => item.completed).map((item, idx) => <ListItem key={idx} value={item.value} strike={item.completed} />) 
-		}
+class List extends Component {
+
+	componentDidMount() {
+		let defaultToDoList = JSON.parse(localStorage.getItem('toDoList'));
 		
-		{
-			props.visible === 'ALL' && props.items.map((item, idx) => <ListItem key={idx} value={item.value} strike={item.completed} />)
+		if(defaultToDoList) {
+			store.dispatch({type: 'ADD_DEFAULT', value: defaultToDoList.itemsArray});
 		}
+	}
 
-		{
-			props.visible === 'INCOMPLETE' && props.items.filter(item => !item.completed).map((item, idx) => <ListItem key={idx} value={item.value} strike={item.completed} />)
+	componentDidUpdate(prevProps) {
+		const state = store.getState();
+
+		if(state.itemsArray.length === 0) {
+			localStorage.clear();
+			console.log('localStorage cleared')
+		} else {
+			localStorage.setItem('toDoList', JSON.stringify(store.getState()));
+			console.log('localStorage called')
 		}
-	
-	</ul>
-);
+	}
 
-const ConnectedList = connect(state => ({items: state.itemsArray, visible: state.visible}))(List);
+	render() {
+		return (
+			<ul>
+
+				{
+					this.props.visible === 'COMPLETE' && this.props.itemsArray.filter(item => item.completed).map((item, idx) => <ListItem key={idx} value={item.value} strike={item.completed} />) 
+				}
+				
+				{
+					this.props.visible === 'ALL' && this.props.itemsArray.map((item, idx) => <ListItem key={idx} value={item.value} strike={item.completed} />)
+				}
+
+				{
+					this.props.visible === 'INCOMPLETE' && this.props.itemsArray.filter(item => !item.completed).map((item, idx) => <ListItem key={idx} value={item.value} strike={item.completed} />)
+				}
+			
+			</ul>
+		);
+	}
+}
+
+const ConnectedList = connect(state => ({itemsArray: state.itemsArray, visible: state.visible}))(List);
 
 const ListItem = (props) => {
 

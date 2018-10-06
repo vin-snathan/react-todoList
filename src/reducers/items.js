@@ -10,6 +10,8 @@ export default (state = itemsReducerDefaultState, action) => {
 			return state.filter(item => action.value !== item.value)
 		case 'CLEAR_LIST':
 			return []
+		case 'ADD_DEFAULT':
+			return state.concat(action.value)
 		default:
 			return state;
 	}

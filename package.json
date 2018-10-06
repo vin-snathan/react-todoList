@@ -13,8 +13,9 @@
   "scripts": {
     "start": "node server/server.js", 
     "heroku-postbuild": "npm run build",
-    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
 }
+
+
